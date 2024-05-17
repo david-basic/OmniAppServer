@@ -1,0 +1,23 @@
+{
+  "name": "omniappserver",
+  "version": "1.0.0",
+  "description": "REST API server for the omni app client",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemone app.js"
+  },
+  "keywords": [
+    "REST",
+    "API"
+  ],
+  "author": "David Bašić",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
