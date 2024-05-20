@@ -23,10 +23,13 @@ mongoose
   )
   .then(() => {
     console.log("Connected to MongoDB Atlas");
+
     // Start the server
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
+
+    // List all endpoints
     console.log(expressListEndpoints(app));
   })
   .catch((error: Error) => {
