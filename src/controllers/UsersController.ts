@@ -1,33 +1,40 @@
+import mongoose from "mongoose";
 import User from "../models/User";
-import { Request, Response } from "express";
+import { RequestHandler } from "express";
+import { ApiResponseError } from "../models/ApiResponseError";
 
-export const getAllUsers = async (req: Request, res: Response) => {
+export const getAllUsers: RequestHandler = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find().select("-password");
     res.status(200).json(users);
-  } catch (error: any) {
-    res.status(500).json({ error: error });
+  } catch (err) {
+    res.status(500).json({ error: err });
   }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserById: RequestHandler<{ id: string }> = async (
+  req,
+  res,
+  next
+) => {
   // get id from URL
   const id = req.params.id;
 
-  // if (!mongoose.Types.ObjectId.isValid(id)) {
-  //   return res.status(400).json({ error: "Invalid ID" });
-  // }
+  // check if id is valid mongodb id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(new ApiResponseError("Invalid user id", 400));
+  }
 
   try {
     // fetch user by id
-    const user = await User.findById(id);
+    const user = await User.findById(id).select("-password");
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return next(new ApiResponseError("User not found", 404));
     }
 
     res.status(200).json(user);
-  } catch (error: any) {
-    res.status(500).json({ error: error });
+  } catch (err: any) {
+    next(new ApiResponseError(err.message, 500));
   }
 };

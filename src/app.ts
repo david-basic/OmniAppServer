@@ -3,22 +3,24 @@ import { connect } from "mongoose";
 import dotenv from "dotenv";
 import adminRoutes from "./routes/AdminRoutes";
 import expressListEndpoints from "express-list-endpoints";
+import { errorHandler } from "./controllers/ErrorHandlingController";
 
 dotenv.config();
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 3000;
 const dbUsername = process.env.DB_MONGO_USER;
 const dbPassword = process.env.DB_MONGO_PASS;
-const testDB = "OmniAppTest";
+const dbName = process.env.DB_MONGO_DB_NAME;
 
 // Middleware
-app.use("/admin", adminRoutes.getAllUsersRoute);
-app.use("/admin", adminRoutes.getUserByIdRoute);
+app.use("/api/admin", adminRoutes);
+
+app.use(errorHandler);
 
 // Connect to MongoDB
 connect(
-  `mongodb+srv://${dbUsername}:${dbPassword}@omniapp.6wf4v3f.mongodb.net/${testDB}?retryWrites=true&w=majority&appName=omniapp`
+  `mongodb+srv://${dbUsername}:${dbPassword}@omniapp.6wf4v3f.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=omniapp`
 )
   .then(() => {
     console.log("Connected to MongoDB Atlas");
