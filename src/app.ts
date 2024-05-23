@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import adminRoutes from "./routes/AdminRoutes";
 import expressListEndpoints from "express-list-endpoints";
 import { errorHandler } from "./controllers/ErrorHandlingController";
+import bookRoutes from "./routes/BookRoutes";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ const dbName = process.env.DB_MONGO_DB_NAME;
 
 // Middleware
 app.use("/api/admin", adminRoutes);
+app.use("/api/books", bookRoutes)
 
 app.use(errorHandler);
 

@@ -1,8 +1,8 @@
 import { ErrorRequestHandler } from "express";
-import { ApiResponseError } from "../models/ApiResponseError";
+import { ApiHttpError } from "../models/ApiHttpError";
 
 export const errorHandler: ErrorRequestHandler = (
-  err: ApiResponseError,
+  err: ApiHttpError,
   req,
   res,
   next

@@ -1,4 +1,4 @@
-export class ApiResponseError extends Error {
+export class ApiHttpError extends Error {
   status: number;
 
   constructor(message: string, status: number) {
