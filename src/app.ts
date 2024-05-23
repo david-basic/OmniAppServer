@@ -9,7 +9,7 @@ import bookRoutes from "./routes/BookRoutes";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 const dbUsername = process.env.DB_MONGO_USER;
 const dbPassword = process.env.DB_MONGO_PASS;
 const dbName = process.env.DB_MONGO_DB_NAME;
